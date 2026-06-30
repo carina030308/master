@@ -146,10 +146,5 @@ pipeline {
     }
 }
 
-
-
-
-curl http://your_server_ip
-
-
+curl http://<public-ip>
 
