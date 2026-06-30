@@ -24,14 +24,13 @@ pipeline {
             steps {
                 sshagent(['redhat-ssh-cred']) {
                     sh """
-                        scp -o StrictHostKeyChecking=no app.tar.gz ${REMOTE_HOST}:/tmp/
-                        ssh -o StrictHostKeyChecking=no ${REMOTE_HOST} '
-                            sudo mkdir -p ${DEPLOY_DIR} &&
-                            sudo tar -xzf /tmp/app.tar.gz -C ${DEPLOY_DIR} &&
+                        
+                            sudo mkdir -p /opt/myflaskapp
+                            sudo cp app.py requirements.txt /opt/myflaskapp/
                             sudo python3 -m venv ${DEPLOY_DIR}/venv || true &&
-                            sudo ${DEPLOY_DIR}/venv/bin/pip install -r ${DEPLOY_DIR}/requirements.txt &&
-                            sudo chown -R flaskapp:flaskapp ${DEPLOY_DIR} &&
-                            sudo systemctl restart myflaskapp &&
+                            sudo /opt/myflaskapp/venv/bin/pip install -r /opt/myflaskapp/requirements.txt
+                            sudo chown -R flaskapp:flaskapp /opt/myflaskapp
+                            sudo systemctl restart myflaskapp
                             sudo systemctl reload nginx
                         '
                     """
