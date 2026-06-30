@@ -1,5 +1,6 @@
 pipeline {
-    agent red
+    agent { label 'red' }
+
 
     environment {
         REMOTE_HOST = "ec2-user@34.207.236.241"
