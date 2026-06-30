@@ -52,8 +52,8 @@ Description=Gunicorn instance for Flask app
 After=network.target
 
 [Service]
-User=flaskapp
-Group=flaskapp
+User=ec2-user
+Group=ec2-user
 WorkingDirectory=/opt/myflaskapp
 Environment="PATH=/opt/myflaskapp/venv/bin"
 ExecStart=/opt/myflaskapp/venv/bin/gunicorn --workers 3 --bind 127.0.0.1:8000 app:app

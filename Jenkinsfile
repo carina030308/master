@@ -15,12 +15,8 @@ pipeline {
         stage('Deploy') {
             steps {
                 sh '''
-                    sudo mkdir -p ${DEPLOY_DIR}
-                    sudo cp app.py requirements.txt ${DEPLOY_DIR}/
-                    sudo /opt/myflaskapp/venv/bin/pip install -r ${DEPLOY_DIR}/requirements.txt
-                    sudo chown -R flaskapp:flaskapp ${DEPLOY_DIR}
+                    sudo cp app.py ${DEPLOY_DIR}/
                     sudo systemctl restart myflaskapp
-                    sudo systemctl reload nginx
                 '''
             }
         }
